@@ -1,0 +1,74 @@
+<html>
+
+<head>
+
+<LINK rel="stylesheet" type="text/css"
+     href="style.css" title="Default Styles" media="screen">
+
+<title>All Shared Code</title>
+
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+
+		                   
+
+$(document).ready(function() {
+
+  //$("postedcontent").load("cgi-bin/data.txt");
+  
+      	$.ajax(
+   	   	{
+        	url: "cgi-bin/fileprintmain.py",
+        	type: "GET",
+        	dataType: "text",
+        	success: function(dat) {
+          		$("#postedcontent").html(dat);
+        		},
+      		}
+    	);
+
+  $("#postButton").click(function() {
+  
+     x = document.getElementById("CodeInput").value;
+	
+    if (!(x == null || x == "")) {
+
+    	$.ajax(
+   	   	{
+        	url: "cgi-bin/fileprint.py",
+        	type: "POST",
+        	data: 	{
+                	code: $("#CodeInput").val()
+              		},
+        	dataType: "text",
+        	success: function(dat) {
+          		$("#postedcontent").html(dat);
+        		},
+      		}
+    	);
+  }
+  else {
+ 		alert("Empty Submission");
+	}
+  });
+});
+ 
+
+</script>
+</head>
+
+<body>
+
+
+<h1>All User Posts Lie Here!</h1>
+
+<input type="text" id="CodeInput"/>
+<button id="postButton">Post</button>
+
+<pre id="postedcontent"></pre>
+
+<a href="index.html">Go back?</a>
+
+</body>
+
+</html>
